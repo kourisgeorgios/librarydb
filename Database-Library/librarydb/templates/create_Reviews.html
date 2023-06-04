@@ -1,0 +1,61 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" name="review-form" method="POST">
+                <!-- hidden_tag returns the form's security metadata -->
+                {{ form.hidden_tag() }}
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.ISBN.label(class = "form-label") }}
+                    {{ form.ISBN(class = "form-control", placeholder = "Enter ISBN", required = False) }}
+                    {% if form.ISBN.errors %}
+                    <ul class="errors">
+                        {% for error in form.ISBN.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.User_id.label(class = "form-label") }}
+                    <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                    {{ form.User_id(class = "form-control", placeholder = "Enter User_id", required = False) }}
+                    {% if form.User_id.errors %}
+                    <ul class="errors">
+                        {% for error in form.User_id.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Score.label(class = "form-label") }}
+                    {{ form.Score(class = "form-control", placeholder = "Enter Score", required = False) }}
+                    {% if form.Score.errors %}
+                    <ul class="errors">
+                        {% for error in form.Score.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Text.label(class = "form-label") }}
+                    {{ form.Text(class = "form-control", placeholder = "Enter Text", required = False) }}
+                    {% if form.Text.errors %}
+                    <ul class="errors">
+                        {% for error in form.Text.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+
+                {{ form.submit(class = "btn btn-primary btn-submit-custom") }}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

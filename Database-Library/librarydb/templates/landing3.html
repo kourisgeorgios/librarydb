@@ -1,0 +1,84 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container" id="row-container">
+    {% include "flash_messages.html" %}
+    <div class="text-center">
+        <form action="{{ url_for('logout') }}" method="post">
+            <button class="btn btn-info" type="submit">Logout</button>
+        </form>
+    </div>
+    <div class="row" id="row">
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">My User</h4>
+                    <p class="card-text paragraph-custom">
+                        Show my details
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/myUser/{{ username }}">Show</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Books</h4>
+                    <p class="card-text paragraph-custom">
+                        List with all books (Search criteria: title/category/author)
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/Books_init">Show</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row" id="row-2">
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">My Borrows</h4>
+                    <p class="card-text paragraph-custom">
+                        List of all books borrowed by this user
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/myBorrows/{{ username }}">Show</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">My Reservations</h4>
+                    <p class="card-text paragraph-custom">
+                        Show the details of all Reservations by this User or create a new one
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/myReservations/{{ username }}">Show</a>
+                    <a class="btn btn-primary btn-submit-custom" href="/myReservations/create/{{ username }}">Create</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row" id="row-3">
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">My Reviews</h4>
+                    <p class="card-text paragraph-custom">
+                        Show the details of all Reviews by this User or create a new one
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/myReviews/{{ username }}">Show</a>
+                    <a class="btn btn-primary btn-submit-custom" href="/myReviews/create/{{ username }}">Create</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<br>
+<br>
+<br>
+{% endblock content %}

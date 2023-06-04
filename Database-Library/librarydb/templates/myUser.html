@@ -1,0 +1,210 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                <div class="card-body" id="card">
+                    {% if Users|length == 0 %}
+                    <h1 style="margin-top: 5rem;">No Users found!</h1>
+                    {% else %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>User id</th>
+                                    <th>Username</th>
+                                    <th>Password</th>
+                                    <th>Date of Birth</th>
+                                    <th>Full name</th>
+                                    <th>Email</th>
+                                    <th>Type</th>
+                                    <th>School id</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for Users in Users %}
+                                <tr>
+                                    <td> {{ Users.User_id }} </td>
+                                    <td> {{ Users.Username }} </td>
+                                    <td> {{ Users.Password }} </td>
+                                    <td> {{ Users.Date_of_birth }} </td>
+                                    <td> {{ Users.Full_name }} </td>
+                                    <td> {{ Users.Email }} </td>
+                                    <td> {{ Users.Type }} </td>
+                                    <td> {{ Users.School_id }} </td>
+
+                                    <td>
+                                        <a type="button" onclick="setModalFields(this)" data-toggle="modal"
+                                            data-id="{{ Users.User_id }}" data-Username="{{Users.Username}}"
+                                            data-Password="{{Users.Password}}"
+                                            data-Date_of_birth="{{Users.Date_of_birth}}"
+                                            data-Full_name="{{Users.Full_name}}" data-Email="{{Users.Email}}"
+                                            data-Type="{{Users.Type}}" data-School_id="{{Users.School_id}}"
+                                            data-bs-toggle="modal" data-bs-target="#editModal">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <button style="all: unset; cursor: pointer;" type="button"
+                                            data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                            data-id="{{ Users.User_id }}" onclick="setDeleteModalFields(this)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endif %}
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                {{ form.submit(class = "btn btn btn-success", form = "modal-form", value = "Update") }}
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Edit modal -->
+<div id="editModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit User</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modal-form">
+                    {{ form.hidden_tag() }}
+                    <div style="text-align: center;">
+                        <input type="text" name="User_id" id="id" readonly>
+
+                        {% for user in Users %}
+                        {% if user.Type == "Student" %}
+                        <input type="text" name="Username" id="Username" readonly value="{{ user.Username }}">
+                        <input type="text" name="Date_of_birth" id="Date_of_birth" readonly
+                            value="{{ user.Date_of_birth }}">
+                        <input type="text" name="Full_name" id="Full_name" readonly value="{{ user.Full_name }}">
+                        <input type="text" name="Email" id="Email" readonly value="{{ user.Email }}">
+                        {% else %}
+                        {{ form.Username(id="Username", required=False) }}
+                        {{ form.Date_of_birth(id="Date_of_birth", required=False) }}
+                        {{ form.Full_name(id="Full_name", required=False) }}
+                        {{ form.Email(id="Email", required=False) }}
+                        {% endif %}
+                        {% endfor %}
+
+                        {{ form.Password(id="Password", required=False) }}
+
+                        <input type="text" name="Type" id="Type" readonly>
+                        <input type="text" name="School_id" id="School_id" readonly>
+                    </div>
+                    <div>
+                        {% if form.Username.errors %}
+                        <ul class="errors">
+                            {% for error in form.Username.errors %}
+                            <li class="alert text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% if form.Password.errors %}
+                        <ul class="errors">
+                            {% for error in form.Password.errors %}
+                            <li class="alert text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% if form.Date_of_birth.errors %}
+                        <ul class="errors">
+                            {% for error in form.Date_of_birth.errors %}
+                            <li class="alert text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% if form.Full_name.errors %}
+                        <ul class="errors">
+                            {% for error in form.Full_name.errors %}
+                            <li class="alert text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% if form.Email.errors %}
+                        <ul class="errors">
+                            {% for error in form.Email.errors %}
+                            <li class="alert text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% if form.School_id.errors %}
+                        <ul class="errors">
+                            {% for error in form.School_id.errors %}
+                            <li class="alert text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                {{ form.submit(class = "btn btn btn-success", form = "modal-form", value = "Update") }}
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Delete modal -->
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form id="delete-modal-form">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
+
+
+<script>
+    function setModalFields(row) {
+        document.getElementById("id").value = row.getAttribute("data-id");
+        document.getElementById("Username").value = row.getAttribute("data-Username");
+        document.getElementById("Password").value = row.getAttribute("data-Password");
+        document.getElementById("Date_of_birth").value = row.getAttribute("data-Date_of_birth");
+        document.getElementById("Full_name").value = row.getAttribute("data-Full_name");
+        document.getElementById("Email").value = row.getAttribute("data-Email");
+        document.getElementById("Type").value = row.getAttribute("data-Type");
+        document.getElementById("School_id").value = row.getAttribute("data-School_id");
+        document.getElementById("modal-form").action = "/myUser/update/" + row.getAttribute("data-Username");
+        document.getElementById("modal-form").method = "POST";
+        // document.getElementById("submit").addEventListener("click", (e) => {e.preventDefault();});
+        // commented line above would prevent the default behavior of the submit button, that is, sending the
+        // form data with a post request to the determined address and subsequently closing the pop-up
+    }
+
+    function setDeleteModalFields(row) {
+        document.getElementById("delete-modal-form").action = "/myUser/delete/" + row.getAttribute("data-Username");
+        document.getElementById("delete-modal-form").method = "POST";
+    }
+</script>
+{% endblock content %}

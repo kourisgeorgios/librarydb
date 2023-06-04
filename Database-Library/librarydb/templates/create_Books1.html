@@ -1,0 +1,234 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" name="book-form" method="POST">
+                <!-- hidden_tag returns the form's security metadata -->
+                {{ form.hidden_tag() }}
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.ISBN.label(class = "form-label") }}
+                    <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                    {{ form.ISBN(class = "form-control", placeholder = "Enter ISBN", required = False) }}
+                    {% if form.ISBN.errors %}
+                    <ul class="errors">
+                        {% for error in form.ISBN.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Library_id.label(class = "form-label") }}
+                    {{ form.Library_id(class = "form-control", placeholder = "Enter Library id", required = False) }}
+                    {% if form.Library_id.errors %}
+                    <ul class="errors">
+                        {% for error in form.Library_id.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Title.label(class = "form-label") }}
+                    {{ form.Title(class = "form-control", placeholder = "Enter Book Title", required = False)
+                    }}
+                    {% if form.Title.errors %}
+                    <ul class="errors">
+                        {% for error in form.Title.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Publisher.label(class = "form-label") }}
+                    {{ form.Publisher(class = "form-control", placeholder = "Enter Publisher", required = False) }}
+                    {% if form.Publisher.errors %}
+                    <ul class="errors">
+                        {% for error in form.Publisher.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Publication_date.label(class = "form-label") }}
+                    {{ form.Publication_date(class = "form-control", placeholder = "Enter Publication date ",
+                    required =
+                    False)
+                    }}
+                    {% if form.Publication_date.errors %}
+                    <ul class="errors">
+                        {% for error in form.Publication_date.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Page_count.label(class = "form-label") }}
+                    {{ form.Page_count(class = "form-control", placeholder = "Enter Page count", required =
+                    False)
+                    }}
+                    {% if form.Page_count.errors %}
+                    <ul class="errors">
+                        {% for error in form.Page_count.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Summary.label(class = "form-label") }}
+                    {{ form.Summary(class = "form-control", placeholder = "Enter Summary name", required =
+                    False)
+                    }}
+                    {% if form.Summary.errors %}
+                    <ul class="errors">
+                        {% for error in form.Summary.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Image.label(class = "form-label") }}
+                    {{ form.Image(class = "form-control", placeholder = "Enter Image Link", required =
+                    False)
+                    }}
+                    {% if form.Image.errors %}
+                    <ul class="errors">
+                        {% for error in form.Image.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Language.label(class = "form-label") }}
+                    {{ form.Language(class = "form-control", placeholder = "Enter Language", required =
+                    False)
+                    }}
+                    {% if form.Language.errors %}
+                    <ul class="errors">
+                        {% for error in form.Language.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Keywords.label(class = "form-label") }}
+                    {{ form.Keywords(class = "form-control", placeholder = "Enter Keywords", required =
+                    False)
+                    }}
+                    {% if form.Keywords.errors %}
+                    <ul class="errors">
+                        {% for error in form.Keywords.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Total_copies.label(class = "form-label") }}
+                    {{ form.Total_copies(class = "form-control", placeholder = "Enter Total copies", required =
+                    False)
+                    }}
+                    {% if form.Total_copies.errors %}
+                    <ul class="errors">
+                        {% for error in form.Total_copies.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Author1.label(class = "form-label") }}
+                    {{ form.Author1(class = "form-control", placeholder = "Enter Author1 name", required =
+                    False)
+                    }}
+                    {% if form.Author1.errors %}
+                    <ul class="errors">
+                        {% for error in form.Author1.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Author2.label(class = "form-label") }}
+                    {{ form.Author2(class = "form-control", placeholder = "Enter Author2 name", required =
+                    False)
+                    }}
+                    {% if form.Author2.errors %}
+                    <ul class="errors">
+                        {% for error in form.Author2.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Author3.label(class = "form-label") }}
+                    {{ form.Author3(class = "form-control", placeholder = "Enter Author3 name", required =
+                    False)
+                    }}
+                    {% if form.Author3.errors %}
+                    <ul class="errors">
+                        {% for error in form.Author3.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Category1.label(class = "form-label") }}
+                    {{ form.Category1(class = "form-control", placeholder = "Enter Category1 ", required =
+                    False)
+                    }}
+                    {% if form.Category1.errors %}
+                    <ul class="errors">
+                        {% for error in form.Category1.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Category2.label(class = "form-label") }}
+                    {{ form.Category2(class = "form-control", placeholder = "Enter Category2 ", required =
+                    False)
+                    }}
+                    {% if form.Category2.errors %}
+                    <ul class="errors">
+                        {% for error in form.Category2.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Category3.label(class = "form-label") }}
+                    {{ form.Category3(class = "form-control", placeholder = "Enter Category3 ", required =
+                    False)
+                    }}
+                    {% if form.Category3.errors %}
+                    <ul class="errors">
+                        {% for error in form.Category3.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {{ form.submit(class = "btn btn-primary btn-submit-custom") }}
+            </form>
+        </div>
+        <br>
+        <br>
+        <br>
+    </div>
+</div>
+{% endblock content %}

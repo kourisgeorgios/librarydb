@@ -1,0 +1,73 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" name="school-form" method="POST">
+                <!-- hidden_tag returns the form's security metadata -->
+                {{ form.hidden_tag() }}
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Address.label(class = "form-label") }}
+                    <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                    {{ form.Address(class = "form-control", placeholder = "Enter Address", required = False) }}
+                    {% if form.Address.errors %}
+                    <ul class="errors">
+                        {% for error in form.Address.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.City.label(class = "form-label") }}
+                    {{ form.City(class = "form-control", placeholder = "Enter City", required = False) }}
+                    {% if form.City.errors %}
+                    <ul class="errors">
+                        {% for error in form.City.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Phone_number.label(class = "form-label") }}
+                    {{ form.Phone_number(class = "form-control", placeholder = "Enter Phone number", required = False)
+                    }}
+                    {% if form.Phone_number.errors %}
+                    <ul class="errors">
+                        {% for error in form.Phone_number.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Email.label(class = "form-label") }}
+                    {{ form.Email(class = "form-control", placeholder = "Enter Email", required = False) }}
+                    {% if form.Email.errors %}
+                    <ul class="errors">
+                        {% for error in form.Email.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-group col-sm-3 mb-3">
+                    {{ form.Director_name.label(class = "form-label") }}
+                    {{ form.Director_name(class = "form-control", placeholder = "Enter Director name", required = False)
+                    }}
+                    {% if form.Director_name.errors %}
+                    <ul class="errors">
+                        {% for error in form.Director_name.errors %}
+                        <li class="text-danger">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {{ form.submit(class = "btn btn-primary btn-submit-custom") }}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

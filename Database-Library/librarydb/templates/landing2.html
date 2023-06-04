@@ -1,0 +1,176 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container" id="row-container">
+    {% include "flash_messages.html" %}
+    <div class="text-center">
+        <form action="{{ url_for('logout') }}" method="post">
+            <button class="btn btn-info" type="submit">Logout</button>
+        </form>
+    </div>
+    <div class="row" id="row">
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">My User</h4>
+                    <p class="card-text paragraph-custom">
+                        Show my details
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/myUser/{{ username }}">Show</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">All Users</h4>
+                    <p class="card-text paragraph-custom">
+                        Show the details of all Users or create a new one
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/Users">Show</a>
+                    <a class="btn btn-primary btn-submit-custom" href="/Users/create">Create</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row" id="row-2">
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">School Departments</h4>
+                    <p class="card-text paragraph-custom">
+                        Show the details of all School Departments or create a new one
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/School_Dep">Show</a>
+                    <a class="btn btn-primary btn-submit-custom" href="/School_Dep/create">Create</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Books</h4>
+                    <p class="card-text paragraph-custom">
+                        Here you can insert new Books
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/Books1/create">create</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row" id="row-3">
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Borrows</h4>
+                    <p class="card-text paragraph-custom">
+                        Here you can see all Borrows or insert new ones
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/Borrows">Show</a>
+                    <a class="btn btn-primary btn-submit-custom" href="/Borrows/create">Create</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Reservations</h4>
+                    <p class="card-text paragraph-custom">
+                        Here you can see all Reservations or insert new ones
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/Reservations">Show</a>
+                    <a class="btn btn-primary btn-submit-custom" href="/Reservations/create">Create</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row" id="row-4">
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Reviews</h4>
+                    <p class="card-text paragraph-custom">
+                        Here you can see all Reviews or insert new ones
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/Reviews">Show</a>
+                    <a class="btn btn-primary btn-submit-custom" href="/Reviews/create">Create</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Books - Operator</h4>
+                    <p class="card-text paragraph-custom">
+                        All books by Title, Author (Search criteria: title/ category/ author/ copies).
+
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/queriesOp1_init">Show</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row" id="row-5">
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Borrows - Specific</h4>
+                    <p class="card-text paragraph-custom">
+                        Find all borrowers who own at least one book and have delayed its return. (Search criteria:
+                        First Name, Last Name, Delay Days)
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/queriesOp2_init">Show</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Average Ratings</h4>
+                    <p class="card-text paragraph-custom">
+                        Average Ratings per borrower and category (Search criteria: user/category)
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/queriesOp3_init">Show</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row" id="row">
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Pending Reservations</h4>
+                    <p class="card-text paragraph-custom">
+                        Grant or Deny a Reservation Request
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/newReservations">Show</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Pending Reviews</h4>
+                    <p class="card-text paragraph-custom">
+                        Grant or Deny a Review Request
+                    </p>
+                    <a class="btn btn-primary btn-submit-custom" href="/newReviews">Show</a>
+                </div>
+            </div>
+        </div>
+    <br>
+    <br>
+    <br>
+    {% endblock content %}

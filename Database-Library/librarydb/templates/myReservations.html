@@ -1,0 +1,47 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                <div class="card-body" id="card">
+                    {% if Reservations|length == 0 %}
+                    <h1 style="margin-top: 5rem;">No Reservation found!</h1>
+                    {% else %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Reservation id</th>
+                                    <th>User id</th>
+                                    <th>Book id</th>
+                                    <th>Reservation date</th>
+                                    <th>Pickup date</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for Reservations in Reservations %}
+                                <tr>
+                                    <td> {{ Reservations.Reservation_id }} </td>
+                                    <td> {{ Reservations.User_id }} </td>
+                                    <td> {{ Reservations.Book_id }} </td>
+                                    <td> {{ Reservations.Reservation_date }} </td>
+                                    <td> {{ Reservations.Pickup_date }} </td>
+                                    <td> {{Reservations.Status }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

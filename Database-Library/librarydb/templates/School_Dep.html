@@ -1,0 +1,184 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                <div class="card-body" id="card">
+                    {% if School_Dep|length == 0 %}
+                    <h1 style="margin-top: 5rem;">No School found!</h1>
+                    {% else %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>School id</th>
+                                    <th>Adress</th>
+                                    <th>City</th>
+                                    <th>Phone number</th>
+                                    <th>Email</th>
+                                    <th>Director</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for School_Dep in School_Dep %}
+                                <tr>
+                                    <td> {{ School_Dep.School_id }} </td>
+                                    <td> {{ School_Dep.Address }} </td>
+                                    <td> {{ School_Dep.City }} </td>
+                                    <td> {{ School_Dep.Phone_number }} </td>
+                                    <td> {{ School_Dep.Email }} </td>
+                                    <td> {{ School_Dep.Director_name }} </td>
+
+                                    <td>
+                                        <a type="button" onclick="setModalFields(this)" data-toggle="modal"
+                                            data-id="{{ School_Dep.School_id }}" data-Address="{{School_Dep.Address}}"
+                                            data-City="{{School_Dep.City}}"
+                                            data-Phone_number="{{School_Dep.Phone_number}}"
+                                            data-Email="{{School_Dep.Email}}"
+                                            data-Director_name="{{School_Dep.Director_name}}" data-bs-toggle="modal"
+                                            data-bs-target="#editModal">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <button style="all: unset; cursor: pointer;" type="button"
+                                            data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                            data-id="{{ School_Dep.School_id }}" onclick="setDeleteModalFields(this)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endif %}
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                {{ form.submit(class = "btn btn btn-success", form = "modal-form", value = "Update") }}
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Edit modal -->
+<div id="editModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit School Department</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modal-form">
+                    {{ form.hidden_tag() }}
+                    <div style="text-align: center;">
+                        <input type="text" name="School_id" id="id" readonly>
+                        <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                        {{ form.Address(id = "Address", required = False) }}
+                        {{ form.City(id = "City", required = False) }}
+                        {{ form.Phone_number(id = "Phone_number", required = False) }}
+                        {{ form.Email(id = "Email", required = False) }}
+                        {{ form.Director_name(id = "Director_name", required = False) }}
+                    </div>
+                    <div>
+                        {% if form.Address.errors %}
+                        <ul class="errors">
+                            {% for error in form.Address.errors %}
+                            <li class="alert text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% if form.City.errors %}
+                        <ul class="errors">
+                            {% for error in form.City.errors %}
+                            <li class="alert text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% if form.Phone_number.errors %}
+                        <ul class="errors">
+                            {% for error in form.Phone_number.errors %}
+                            <li class="alert text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% if form.Email.errors %}
+                        <ul class="errors">
+                            {% for error in form.Email.errors %}
+                            <li class="alert text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% if form.Director_name.errors %}
+                        <ul class="errors">
+                            {% for error in form.Director_name.errors %}
+                            <li class="alert text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                {{ form.submit(class = "btn btn btn-success", form = "modal-form", value = "Update") }}
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Delete modal -->
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete School</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form id="delete-modal-form">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
+
+
+<script>
+    function setModalFields(row) {
+        document.getElementById("id").value = row.getAttribute("data-id");
+        document.getElementById("Address").value = row.getAttribute("data-Address");
+        document.getElementById("City").value = row.getAttribute("data-City");
+        document.getElementById("Phone_number").value = row.getAttribute("data-Phone_number");
+        document.getElementById("Email").value = row.getAttribute("data-Email");
+        document.getElementById("Director_name").value = row.getAttribute("data-Director_name");
+        document.getElementById("modal-form").action = "/School_Dep/update/" + row.getAttribute("data-id");
+        document.getElementById("modal-form").method = "POST";
+        // document.getElementById("submit").addEventListener("click", (e) => {e.preventDefault();});
+        // commented line above would prevent the default behavior of the submit button, that is, sending the
+        // form data with a post request to the determined address and subsequently closing the pop-up
+    }
+
+    function setDeleteModalFields(row) {
+        document.getElementById("delete-modal-form").action = "/School_Dep/delete/" + row.getAttribute("data-id");
+        document.getElementById("delete-modal-form").method = "POST";
+    }
+</script>
+{% endblock content %}

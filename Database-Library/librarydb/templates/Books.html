@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+{% extends "global_layout.html" %}
+{% block content %}
+
+<head>
+    <title>Your Page Title</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+
+        select {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        select {
+            width: 120px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 3px;
+            border: none;
+            color: #fff;
+            background-color: #007bff;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .no-books-message {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 40px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #f9f9f9;
+        }
+
+        .table tr:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="nav-bar">
+
+        <div class="container">
+            <form action="Book" method="post">
+                <input type="text" placeholder="data" name="data" value="{{ request.form.data }}">
+                <select name="type">
+                    <option value="Any" {% if request.form.type=='Any' %}selected{% endif %}>Any</option>
+                    <option value="Title" {% if request.form.type=='Title' %}selected{% endif %}>Title</option>
+                    <option value="Author" {% if request.form.type=='Author' %}selected{% endif %}>Author</option>
+                    <option value="Category" {% if request.form.type=='Category' %}selected{% endif %}>Category</option>
+                </select>
+                <input class="btn btn-default" type="submit" value="Submit">
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% include "flash_messages.html" %}
+        <div class="row">
+            <div class="col-md-12">
+                {% if Books|length == 0 %}
+                <h1 class="no-books-message">No Books found!</h1>
+                {% else %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ISBN</th>
+                                <th>Title</th>
+                                <th>Publication date</th>
+                                <th>Authors</th>
+                                <th>Categories</th>
+                                <th>Score</th>
+                                <th>IDs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for book in Books %}
+                            <tr>
+                                <td>{{ book.ISBN }}</td>
+                                <td>{{ book.Title }}</td>
+                                <td>{{ book.Publication_date }}</td>
+                                <td>{{ book.Authors }}</td>
+                                <td>{{ book.Categories }}</td>
+                                <td>{{ book.Score }}</td>
+                                <td>{{ book.IDs }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock content %}

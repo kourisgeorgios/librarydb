@@ -1,0 +1,134 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                <div class="card-body" id="card">
+                    {% if Reservations|length == 0 %}
+                    <h1 style="margin-top: 5rem;">No Reservation found!</h1>
+                    {% else %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Reservation id</th>
+                                    <th>Reservation date</th>
+                                    <th>User id</th>
+                                    <th>Book id</th>
+                                    <th>Book Status</th>
+                                    <th>User Type</th>
+                                    <th>Res. Last Week</th>
+                                    <th>Res. Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for Reservations in Reservations %}
+                                <tr>
+                                    <td> {{ Reservations.Reservation_id }} </td>
+                                    <td> {{ Reservations.Reservation_date }} </td>
+                                    <td> {{ Reservations.User_id }} </td>
+                                    <td> {{ Reservations.Book_id }} </td>
+                                    <td> {{ Reservations.B_Status }} </td>
+                                    <td> {{ Reservations.Type }} </td>
+                                    <td> {{ Reservations.C }} </td>
+                                    <td> {{ Reservations.R_Status }} </td>
+
+                                    <td>
+                                        <a type="button" onclick="setModalFields(this)" data-toggle="modal"
+                                            data-id="{{ Reservations.Reservation_id }}"
+                                            data-Reservation_date="{{Reservations.Reservation_date}}"
+                                            data-User_id="{{Reservations.User_id}}"
+                                            data-Book_id="{{Reservations.Book_id}}"
+                                            data-Status="{{Reservations.Status}}" data-bs-toggle="modal"
+                                            data-bs-target="#editModal">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endif %}
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                {{ form.submit(class = "btn btn btn-success", form = "modal-form", value = "Update") }}
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Edit modal -->
+<div id="editModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Reservation</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modal-form">
+                    {{ form.hidden_tag() }}
+                    <div style="text-align: center;">
+                        <input type="text" name="Reservation_id" id="id" readonly>
+                        <!-- Setting required to false disables the HTML attribute and leaves input validation to the backend -->
+                        <input type="text" name="User_id" id="User_id" readonly>
+                        <input type="text" name="Book_id" id="Book_id" readonly>
+                        <input type="text" name="Reservation_date" id="Reservation_date" readonly>
+                        {{ form.Status(id = "Status", required = False) }}
+                    </div>
+                    <div>
+                        {% if form.User_id.errors %}
+                        <ul class="errors">
+                            {% for error in form.User_id.errors %}
+                            <li class="alert text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% if form.Book_id.errors %}
+                        <ul class="errors">
+                            {% for error in form.Book_id.errors %}
+                            <li class="alert text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                        {% if form.Status.errors %}
+                        <ul class="errors">
+                            {% for error in form.Status.errors %}
+                            <li class="alert text-danger">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                {{ form.submit(class = "btn btn btn-success", form = "modal-form", value = "Update") }}
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function setModalFields(row) {
+        document.getElementById("id").value = row.getAttribute("data-id");
+        document.getElementById("User_id").value = row.getAttribute("data-User_id");
+        document.getElementById("Book_id").value = row.getAttribute("data-Book_id");
+        document.getElementById("Status").value = row.getAttribute("data-Status");
+        document.getElementById("Reservation_date").value = row.getAttribute("data-Reservation_date");
+
+        document.getElementById("modal-form").action = "/Reservations/update/" + row.getAttribute("data-id");
+        document.getElementById("modal-form").method = "POST";
+    }
+
+</script>
+{% endblock content %}

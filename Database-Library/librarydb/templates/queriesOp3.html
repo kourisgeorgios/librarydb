@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+{% extends "global_layout.html" %}
+{% block content %}
+
+<head>
+    <title>Your Page Title</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+
+        select {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        select {
+            width: 120px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 3px;
+            border: none;
+            color: #fff;
+            background-color: #007bff;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .no-q2-message {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 40px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #f9f9f9;
+        }
+
+        .table tr:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="nav-bar">
+
+        <div class="container">
+            <form action="queriesOp3" method="post">
+                <input type="text" placeholder="User ID" name="data1" value="{{ request.form.data1 }}">
+                <input type="text" placeholder="Category" name="data2" value="{{ request.form.data2 }}">
+                <select name="type">
+                    <option value="Any" {% if request.form.type=='Any' %}selected{% endif %}>Any</option>
+                    <option value="user" {% if request.form.type=='user' %}selected{% endif %}>User ID</option>
+                    <option value="category" {% if request.form.type=='category' %}selected{% endif %}>Category</option>
+                    <option value="user_and_category" {% if request.form.type=='user_and_category' %}selected{% endif
+                        %}>User and Category</option>
+
+                </select>
+                <input class="btn btn-default" type="submit" value="Submit">
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% include "flash_messages.html" %}
+        <div class="row">
+            <div class="col-md-12">
+                {% if check2 %}
+                {% if q2|length == 0 %}
+                <h1 class="no-q2-message">No data found!</h1>
+                {% else %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>User id </th>
+                                <th>Average_Score</th>
+                                <th>Number of Reviews</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for q2 in q2 %}
+                            <tr>
+                                <td>{{ q2.Username }}</td>
+                                <td>{{ q2.User_id }}</td>
+                                <td>{{ q2.Average_Score }}</td>
+                                <td>{{ q2.No_reviews }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        {% include "flash_messages.html" %}
+        <div class="row">
+            <div class="col-md-12">
+                {% if check3 %}
+                {% if q3|length == 0 %}
+                <h1 class="no-q3-message">No data found!</h1>
+                {% else %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Average_Score</th>
+                                <th>Number of Reviews</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for q3 in q3 %}
+                            <tr>
+                                <td>{{ q3.Category_name }}</td>
+                                <td>{{ q3.Average_Score }}</td>
+                                <td>{{ q3.No_reviews }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+{% endblock content %}

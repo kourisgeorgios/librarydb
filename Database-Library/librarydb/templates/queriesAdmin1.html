@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+{% extends "global_layout.html" %}
+{% block content %}
+
+<head>
+    <title>Your Page Title</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+
+        select {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        select {
+            width: 120px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 3px;
+            border: none;
+            color: #fff;
+            background-color: #007bff;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .no-numbers-message {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 40px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #f9f9f9;
+        }
+
+        .table tr:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="nav-bar">
+
+        <div class="container">
+            <form action="queriesAdmin1" method="post">
+                <input type="text" placeholder="Month" name="month" value="{{ request.form.month }}">
+                <input type="text" placeholder="Year" name="year" value="{{ request.form.year }}">
+                <select name="type">
+                    <option value="Any" {% if request.form.type=='Any' %}selected{% endif %}>Any</option>
+                    <option value="year" {% if request.form.type=='year' %}selected{% endif %}>Year</option>
+                    <option value="month" {% if request.form.type=='month' %}selected{% endif %}>Month</option>
+                    <option value="year and month" {% if request.form.type=='year and month' %}selected{% endif %}>Year
+                        and Month</option>
+                </select>
+                <input class="btn btn-default" type="submit" value="Submit">
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% include "flash_messages.html" %}
+        <div class="row">
+            <div class="col-md-12">
+                {% if Numbers|length == 0 %}
+                <h1 class="no-numbers-message">Nothing found!</h1>
+                {% else %}
+                <div class="title-container">
+                    <h2 class="query-title"> 3.1.1 Borrows per School</h2> <!-- Add title for Query 1 -->
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>School ID</th>
+                                <th>Number of Borrows</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for Numbers in Numbers %}
+                            <tr>
+                                <td>{{ Numbers.School }}</td>
+                                <td>{{ Numbers.No_Borrows }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+
+</html>
+{% endblock content %}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Your Page Title</title>
+  <style>
+    body {
+      background-color: #f2f2f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+
+    #nav-bar {
+      background-color: #f9f9f9;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    #nav-bar-text {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      text-decoration: none;
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    select {
+      padding: 10px;
+      margin: 5px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    select {
+      width: 120px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 3px;
+      border: none;
+      color: #fff;
+      background-color: #007bff;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-light navbar-expand-md" id="nav-bar">
+    <div id="navbar-div" class="container-fluid">
+      <a class="navbar-brand" id="nav-bar-text">School Library Database: "Cosmos" - {{ pageTitle }}</a>
+      <form action="login" method="post">
+        <input type="text" placeholder="Username" name="username" value="{{ request.form.username }}">
+        <input type="password" placeholder="Password" name="password" value="{{ request.form.password }}">
+        <select name="type">
+          <option value="Admin" {% if request.form.type=='Admin' %}selected{% endif %}>Admin</option>
+          <option value="Operator" {% if request.form.type=='Operator' %}selected{% endif %}>Operator</option>
+          <option value="User" {% if request.form.type=='User' %}selected{% endif %}>User</option>
+        </select>
+        <input class="btn btn-default" type="submit" value="Login">
+      </form>
+    </div>
+  </nav>
+</body>
+
+</html>

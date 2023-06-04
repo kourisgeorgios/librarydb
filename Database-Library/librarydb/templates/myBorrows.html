@@ -1,0 +1,49 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                <div class="card-body" id="card">
+                    {% if Borrows|length == 0 %}
+                    <h1 style="margin-top: 5rem;">No Borrow found!</h1>
+                    {% else %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Borrow id</th>
+                                    <th>Borrow date</th>
+                                    <th>Return date</th>
+                                    <th>User id</th>
+                                    <th>Book id</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for Borrows in Borrows %}
+                                <tr>
+                                    <td> {{ Borrows.Borrow_id }} </td>
+                                    <td> {{ Borrows.Borrow_date }} </td>
+                                    <td> {{ Borrows.Return_date }} </td>
+                                    <td> {{ Borrows.User_id }} </td>
+                                    <td> {{ Borrows.Book_id }} </td>
+
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

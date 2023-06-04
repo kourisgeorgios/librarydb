@@ -1,5 +1,5 @@
-import pymysql
-pymysql.install_as_MySQLdb()
+#import pymysql
+#pymysql.install_as_MySQLdb()
 from librarydb import app
 
 if(__name__ == "__main__"):

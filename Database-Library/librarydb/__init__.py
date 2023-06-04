@@ -11,7 +11,7 @@ app = Flask(__name__)
 # configuration of database
 
 app.config["MYSQL_USER"] = 'root'
-app.config["MYSQL_PASSWORD"] = 'database123'
+app.config["MYSQL_PASSWORD"] = ''  #insert your password here
 app.config["MYSQL_DB"] = 'mydb'
 app.config["MYSQL_HOST"] = 'localhost'
 # secret key for sessions (signed cookies). Flask uses it to protect the contents of the user session against tampering.
